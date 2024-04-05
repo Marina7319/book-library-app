@@ -10,7 +10,7 @@ import { LoginComponent } from './login/login.component';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, FormsModule, AppComponent, routes, LoginComponent],
-  templateUrl: './app.component.html',
+  template: `<router-outlet></router-outlet>`,
   styleUrl: './app.component.css'
 })
 export class AppComponent  {

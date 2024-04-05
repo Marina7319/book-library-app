@@ -38,7 +38,7 @@ export class LoginComponent {
       password: this.password,
     };
 
-    this.http.post("http://localhost:8000/user/login",bodyDate)
+    this.http.post("http://localhost:8000/user/login", bodyDate)
     .subscribe((resultData: any) => {
     console.log(resultData);
 
