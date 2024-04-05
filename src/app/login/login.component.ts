@@ -10,7 +10,7 @@ import { routes } from '../app.routes';
 @Component({
   selector: 'login',
   standalone: true,
-  imports: [FormsModule, HomeComponent, RegisterComponent, routes],
+  imports: [FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

@@ -6,43 +6,25 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
+import { AppModule } from './app.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
 const routes: Routes = [
-    {
-        path: '',
-        component: LoginComponent,pathMatch: 'full'
-    },
-    {
-        path: 'home',
-        component: HomeComponent,pathMatch: 'full'
-    },
-    {
-        path: 'register',
-        component: RegisterComponent,pathMatch: 'full'
-    },
-    {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      }
+    {path: '',component: LoginComponent,pathMatch: 'full'},
+    {path: 'home',component: HomeComponent,pathMatch: 'full'},
+    {path: 'register',component: RegisterComponent,pathMatch: 'full'},
+    {path: '',redirectTo: 'home',pathMatch: 'full'}
 
 ];
 
 @NgModule({
-imports: [CommonModule, RouterModule.forRoot(routes, {}), LoginComponent],
-exports: [RouterModule],
-})export class AppRoutingModule {}
+    imports: [RouterModule.forRoot(routes)],
+    exports: [
+        RouterModule
+    ]
+})
+export class AppRoutingModule {}
 
 
-// import { LoginComponent } from './login/login.component';
-// import { RouterModule } from '@angular/router';
-
-// import { HomeComponent } from './home/home.component';
-
-// import { RegisterComponent } from './register/register.component';
-
-// export const routing = RouterModule.forRoot([
-//     { path: 'login', component: LoginComponent},
-//     { path: 'register', component: RegisterComponent},
-//     { path: '', component: HomeComponent},
-
-// ]);

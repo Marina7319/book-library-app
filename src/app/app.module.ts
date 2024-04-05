@@ -7,35 +7,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { RouterModule } from '@angular/router';
-import { routes } from './app.routes';
+import { RouterModule, Routes } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 
+const routes: Routes = [
+    { path: 'login', component: LoginComponent},
+    { path: 'register', component: RegisterComponent},
+    { path: '', component: HomeComponent},
 
+];
 
 
 @NgModule({
     declarations: [
-        AppComponent,
-        LoginComponent,
-        HomeComponent,
-        RegisterComponent
+
     ],
     imports: [
         BrowserModule,
         FormsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormControl,
-        Validators,
-        CommonModule,
-        RouterModule.forRoot(routes,  {
-            useHash: true
-          }),
-        AppRoutingModule,
-        AppModule
+        AppRoutingModule     
     ],
+    exports: [RouterModule],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: []
 })
 export class AppModule { }

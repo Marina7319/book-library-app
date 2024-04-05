@@ -9,10 +9,10 @@ import { LoginComponent } from './login/login.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, AppComponent, routes, LoginComponent],
-  template: `<router-outlet></router-outlet>`,
+  imports: [RouterOutlet, FormsModule],
+  template: `<router-outlet></router-outlet><h1>{{ title }}</h1>`,
   styleUrl: './app.component.css'
 })
 export class AppComponent  {
- 
+ title='app work';
 }
