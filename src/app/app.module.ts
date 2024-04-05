@@ -8,30 +8,34 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
+import { routes } from './app.routes';
+import { CommonModule } from '@angular/common';
+
 
 
 
 @NgModule({
     declarations: [
-        // AppComponent,
-       //  RegisterComponent,
-       // LoginComponent,
-      //  HomeComponent
+        AppComponent,
+        LoginComponent,
+        HomeComponent,
+        RegisterComponent
     ],
-    exports: [RouterModule],
-    providers: [  ],
-   // bootstrap: [AppComponent],
     imports: [
         BrowserModule,
-        AppRoutingModule,
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormControl,
-        Validators
-     
-        
-        
-    ]
+        Validators,
+        CommonModule,
+        RouterModule.forRoot(routes,  {
+            useHash: true
+          }),
+        AppRoutingModule,
+        AppModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

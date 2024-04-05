@@ -1,14 +1,11 @@
 var userService = require('./userService');
 
-// var loginUserControllerFn = async(req, res) => {
-//     var employee = await userService.getDataFromDBService();
-//     res.sedn({ "status": true, "data": employee });
-// }
-
 var createUserControllerFn = async (req, res) => { 
 
     try {
+        console.log(req.body);
     var status = await userService.createUserDBService(req.body);
+    console.log(status);
     if (status) {
         res.send({ "status": true, "message": "User created successfully" });
 
