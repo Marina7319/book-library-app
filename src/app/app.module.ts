@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -21,12 +22,11 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-
     ],
     imports: [
         BrowserModule,
         FormsModule,
-        AppRoutingModule     
+        AppRoutingModule
     ],
     exports: [RouterModule],
     providers: [],
