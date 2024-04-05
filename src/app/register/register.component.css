@@ -23,3 +23,23 @@ h1,
   width: 39%;
 }
 
+html { 
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+form { 
+  width: 30%;
+  text-align: center;
+  margin: 10%;
+}
+
+button { 
+  color:cyan;
+}
+
+.form-group { 
+    text-align: left;
+
+}

@@ -13,9 +13,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 const routes: Routes = [
-    {path: '',component: LoginComponent,pathMatch: 'full'},
+    {path: 'login',component: LoginComponent,pathMatch: 'full'},
     {path: 'home',component: HomeComponent,pathMatch: 'full'},
     {path: 'register',component: RegisterComponent,pathMatch: 'full'},
+    {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
 
 @NgModule({

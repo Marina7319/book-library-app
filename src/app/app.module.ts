@@ -11,13 +11,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
+import { ButtonModule } from 'primeng/button';
 
-const routes: Routes = [
-    { path: 'login', component: LoginComponent},
-    { path: 'register', component: RegisterComponent},
-    { path: '', component: HomeComponent},
 
-];
 
 
 @NgModule({
@@ -26,7 +22,8 @@ const routes: Routes = [
     imports: [
         BrowserModule,
         FormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        ButtonModule
     ],
     exports: [RouterModule],
     providers: [],

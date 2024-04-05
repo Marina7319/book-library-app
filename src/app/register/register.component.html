@@ -1,10 +1,12 @@
 
 
       <form> 
+         <legend>
+            Sign Up
+         </legend>
          <div class="form-group">
             <label>First name :</label>
-            <input type="text" [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}"  class="form-control" >
-           
+            <input type="text" [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}"  class="form-control" >  
          </div>
       <div class="form-group">
          <label>Last name :</label>
@@ -20,6 +22,10 @@
       </div>
    
       <button type="submit" class="btn btn-primary mt-4" (click)="save()" >Save</button>
+      <div class="mt-2">
+           <a  [routerLink]="['/login']">Login</a>
+       </div>
       </form>
+
        
  

@@ -1,0 +1,46 @@
+h1,
+.form-label,
+.alert alert-danger,
+.form-text,
+.form-label,
+.alert alert-danger,
+.form-label,
+.form-control,
+.btn btn-primary,
+.btn btn-default {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.user,
+.submit,
+.email,
+.country {
+  color: mediumaquamarine;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container .mb-3 {
+  width: 39%;
+}
+
+html { 
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+form { 
+  width: 30%;
+  text-align: center;
+  margin: 10%;
+}
+
+
+.mb-3 { 
+    text-align: left;
+}
+
+
+button { 
+    color:cyan;
+  }
