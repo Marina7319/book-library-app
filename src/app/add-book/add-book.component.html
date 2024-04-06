@@ -1,0 +1,47 @@
+
+
+<form> 
+    <legend>
+       Books
+    </legend>
+    <div class="form-group">
+       <label>Book Title:</label>
+       <input type="text" [(ngModel)]="title" [ngModelOptions]="{standalone: true}"  class="form-control" >  
+    </div>
+ <div class="form-group">
+    <label>Writer :</label>
+    <input type="text" [(ngModel)]="writer" [ngModelOptions]="{standalone: true}" class="form-control"  >   
+ </div>
+ <div class="form-group">
+    <label>Genre :</label>
+    <input type="email" [(ngModel)]="genre" [ngModelOptions]="{standalone: true}" class="form-control"  >
+ </div>
+
+ <button type="submit" class="btn btn-primary mt-4" (click)="save()" >Save</button>
+ </form>
+
+
+ <div class="container mt-4">
+   <h1>Book List</h1>
+   <table class="table">
+      <thead>
+         <tr>
+            <th>Title</th>
+            <th>Writer</th>
+            <th>Genre</th>
+         </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let book of BookArray">
+      <td>{{book.title | uppercase }}</td>
+   <td>{{book.writer | uppercase }}</td>
+   <td>{{book.genre | uppercase }}</td>
+   <td>
+      <button type="button" class="btn btn-success" (click)=""></button>
+      <button type="button" class="btn btn-danger" (click)=""></button>
+   </td>
+</tr>
+      </tbody>
+   </table>
+ </div>
+  

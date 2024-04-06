@@ -1,6 +1,19 @@
 var userModel = require('./userModel');
+var bookModel = require('./bookModel');
 var key = '1234567890123456';
 var encryptor = require('simple-encryptor')(key);
+
+module.exports.getBookFromDBService = () => { 
+    return new Promise(function checkURL(resolve, reject) {
+        bookModel.find({}, function returnData(error, result) {
+            if(error) { 
+                reject(false);
+            } else { 
+                resolve(result);
+            }
+        });
+    });
+}
 
 module.exports.getDataFromDBService = (id) => { 
     return new Promise(function checkURL(resolve, reject) {
@@ -16,8 +29,8 @@ module.exports.getDataFromDBService = (id) => {
 
 
 
-module.exports.createUserDBService = (userDetails) => { 
-    return new Promise(function myFn(resolve, reject) {
+module.exports.createUserDBService =  (userDetails) => { 
+    return new Promise(async function myFn(resolve, reject) {
         var userModelData = new userModel();
 
         userModelData.firstname = userDetails.firstname;
@@ -27,6 +40,12 @@ module.exports.createUserDBService = (userDetails) => {
         var encrypted = encryptor.encrypt(userDetails.password);
         userModelData.password = encrypted;
 
+        const userModel = new users();
+            userModel.firstname =firstname;
+            userModel.lastname=lastname;
+            userModel.email=email;
+            userModel.password=password;
+        
         userModelData.save(function resultHandle(error, result) { 
             if(error) { 
                 reject(false);
@@ -81,6 +100,59 @@ module.exports.updateUserDBService = (id, userDetails) => {
 module.exports.removeUserDbService = (id) => {
     return new Promise(function myFn(resolve, reject) {
         userModel.findByIdAndDelete(id, function returnData(error, result) {
+            if(error) 
+            {
+                reject(false);
+            }
+            else 
+            {
+                resolve(result);
+            }
+        });
+    });
+}
+
+
+module.exports.createBookDBService = (bookDetails) => { 
+    return new Promise(function myFn(resolve, reject) {
+        var bookModelData = new bookModel();
+
+        bookModelData.title = bookDetails.title;
+        bookModelData.writer = bookDetails.writer;
+        bookModelData.genre = bookDetails.genre;
+
+
+        bookModelData.save(function resultHandle(error, result) { 
+            if(error) { 
+                reject(false);
+            } else {
+                resolve(true);
+            }
+        });
+    })
+}
+
+
+module.exports.updateBookDBService = (id, bookDetails) => {
+    console.log(bookDetails);
+    return new Promise(function myFn(resolve, reject) {
+        bookModel.findByIdAndUpdate(id, bookDetails, function returnData(error, result) {
+            if(error) 
+            {
+                reject(false);
+            }
+            else 
+            {
+                resolve(result);
+            }
+        });
+    });
+}
+
+
+module.exports.removeBookDbService = (id) => {
+    return new Promise(function myFn(resolve, reject) {
+        bookModel.findByIdAndDelete(id, function returnData(error, result) {
             if(error) 
             {
                 reject(false);

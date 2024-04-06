@@ -1,11 +1,5 @@
 var userService = require('./userService');
 
-var getDataControllerfn = async (req, res) => 
-{
-    var employee = await userService.getDataFromDBService();
-    res.send({ "status": true, "data": employee});
-}
-
 var createUserControllerFn = async (req, res) => { 
 
     try {
@@ -42,9 +36,6 @@ var loginUserControllerFn = async (req, res) => {
 }
 
 
-
-
-
 var updateUserController = async (req, res) => 
 {
     console.log(req.params.id);
@@ -70,4 +61,45 @@ var deleteUserController = async (req, res) => {
     }
 }
 
-module.exports = { deleteUserController, updateUserController, getDataControllerfn ,createUserControllerFn, loginUserControllerFn };
+var getBookConntrollerfn = async (req, res) => {
+    var book = await userService.getBookFromDBService();
+    res.send({ "status": true, "data": book});
+}
+
+var createBookControllerFn = async (req, res) => { 
+
+    var status = await userService.createBookDBService(req.body);
+    if (status) {
+        res.send({ "status": true, "message": "Book added successfully" });
+
+    } else {
+        res.send({ "status": false, "message": "Error adding user" });
+    }
+} 
+
+var updateBookController = async (req, res) => 
+{
+    console.log(req.params.id);
+    console.log(req.body);
+    
+    var result = await userService.updateBookDBService(req.params.id, req.body);
+    
+    if(result) { 
+        res.send({"status": true, "message": "Book Updated"});
+    } else {
+        res.send({"status": false, "message": "Book Updated Failed"});
+    }
+}
+
+var deleteBookController = async (req, res) => {
+    console.log(req.params.id);
+    var result = await userService.removeBookDbService(req.params.id);
+
+    if(result) { 
+        res.send({"status": true, "message": "Book Deleted"});
+    } else {
+        res.send({"status": false, "message": "Book Deleted Failed"});
+    }
+}
+
+module.exports = {deleteBookController, updateBookController, createBookControllerFn , getBookConntrollerfn, createUserControllerFn, loginUserControllerFn };
