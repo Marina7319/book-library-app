@@ -20,6 +20,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
+
   isLogin: boolean = true;
 
   errorMessage: string = "";
@@ -31,14 +32,13 @@ export class LoginComponent {
 
   login()
   {
-    console.log(this.email);
-    console.log(this.password);
 
     let bodyDate = {
       email: this.email,
       password: this.password,
     };
-
+    console.log(this.email);
+    console.log(this.password);
     this.http.post("http://localhost:8000/user/login", bodyDate)
     .subscribe((resultData: any) => {
     console.log(resultData);
@@ -46,6 +46,7 @@ export class LoginComponent {
     if (resultData.status)
       {
         this.router.navigateByUrl('/home');
+    
       }
       else 
       {

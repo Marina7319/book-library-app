@@ -35,8 +35,8 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 
 export const routing = RouterModule.forRoot([
-    { path: 'login', component: LoginComponent},
+    { path: '', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
-    { path: '', component: HomeComponent},
+    { path: 'home', component: HomeComponent},
 
 ]);

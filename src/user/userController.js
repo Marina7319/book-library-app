@@ -1,5 +1,11 @@
 var userService = require('./userService');
 
+var getDataControllerfn = async (req, res) => 
+{
+    var employee = await userService.getDataFromDBService();
+    res.send({ "status": true, "data": employee});
+}
+
 var createUserControllerFn = async (req, res) => { 
 
     try {
@@ -35,4 +41,33 @@ var loginUserControllerFn = async (req, res) => {
     }
 }
 
-module.exports = { createUserControllerFn, loginUserControllerFn };
+
+
+
+
+var updateUserController = async (req, res) => 
+{
+    console.log(req.params.id);
+    console.log(req.body);
+    
+    var result = await userService.updateUserDBService(req.params.id, req.body);
+    
+    if(result) { 
+        res.send({"status": true, "message": "User Updated"});
+    } else {
+        res.send({"status": false, "message": "User Updated Failed"});
+    }
+}
+
+var deleteUserController = async (req, res) => {
+    console.log(req.params.id);
+    var result = await userService.removeUserDbService(req.params.id);
+
+    if(result) { 
+        res.send({"status": true, "message": "User Deleted"});
+    } else {
+        res.send({"status": false, "message": "User Deleted Failed"});
+    }
+}
+
+module.exports = { deleteUserController, updateUserController, getDataControllerfn ,createUserControllerFn, loginUserControllerFn };

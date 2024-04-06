@@ -2,9 +2,9 @@ var userModel = require('./userModel');
 var key = '1234567890123456';
 var encryptor = require('simple-encryptor')(key);
 
-module.exports.getDataFromDBService = () => { 
+module.exports.getDataFromDBService = (id) => { 
     return new Promise(function checkURL(resolve, reject) {
-        userModel.find({}, function returnData(error, result) {
+        userModel.find(id, function returnData(error, result) {
             if(error) { 
                 reject(false);
             } else { 
@@ -13,6 +13,8 @@ module.exports.getDataFromDBService = () => {
         });
     });
 }
+
+
 
 module.exports.createUserDBService = (userDetails) => { 
     return new Promise(function myFn(resolve, reject) {
@@ -54,6 +56,38 @@ module.exports.loginuserDBService = (userDetails) => {
                 } else {
                     reject({status: false, msg: "Invalid User Details"});
                 }
+            }
+        });
+    });
+}
+
+module.exports.updateUserDBService = (id, userDetails) => {
+    console.log(userDetails);
+    return new Promise(function myFn(resolve, reject) {
+        userModel.findOneAndUpdate(id, userDetails, function returnData(error, result) {
+            if(error) 
+            {
+                reject(false);
+            }
+            else 
+            {
+                resolve(result);
+            }
+        });
+    });
+}
+
+
+module.exports.removeUserDbService = (id) => {
+    return new Promise(function myFn(resolve, reject) {
+        userModel.findByIdAndDelete(id, function returnData(error, result) {
+            if(error) 
+            {
+                reject(false);
+            }
+            else 
+            {
+                resolve(result);
             }
         });
     });

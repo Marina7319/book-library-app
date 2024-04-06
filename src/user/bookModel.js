@@ -1,24 +1,18 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
-    firstname: {
+var bookSchema = new Schema({
+    title: {
         type: String,
         require: true
     }, 
-    lastname: {
+    writer: {
         type: String,
         require: true
     },
-    email: {
-        type: String,
-        require: true
-    }, 
-    password: {
+    genre: {
         type: String,
         require: true
     }
 });
-
-
-module.exports = mongoose.model('users', userSchema);
+module.exports = mongoose.model('books', bookSchema);
