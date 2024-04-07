@@ -15,8 +15,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
-
-
   form!: FormGroup;
 
   constructor(
@@ -25,7 +23,6 @@ export class LoginComponent implements OnInit {
       private router: Router
     ) 
     {
-
     }
 
   ngOnInit():void{
@@ -34,24 +31,19 @@ export class LoginComponent implements OnInit {
       password:"",
     });
   }
-
-
   login():void {
     let user = this.form.getRawValue();
     console.log(user);
-     if(user.lastname == "" || user.email == "" || user.firstname == "" || user.password == "") {
-         //  alert("Student Not Registered Successfully");
-         } else {
-      this.http.post("http://localhost:8000/user/login", user, {
+      if(user.lastname == "" || user.email == "" || user.firstname == "" || user.password == "") {
+        alert("Student Not Logged Successfully");
+      } else {
+        this.http.post("http://localhost:8000/user/login", user, {
         withCredentials:true
-      })
-      .subscribe(
-        (res) => this.router.navigate(['/']),
-        (err) => { 
-          console.log("Error login");
-          alert("Incorrect Email or Password 2");
-        }
-      )
-    }
+      }).subscribe((res) => this.router.navigate(['/']),
+      (err) => { 
+        console.log("Error login");
+        alert("Incorrect Email or Password 2");
+        })
+      }
   }
 }
