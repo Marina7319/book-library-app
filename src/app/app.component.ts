@@ -1,18 +1,15 @@
-
 import { AddBookComponent } from './add-book/add-book.component';
-import { Component, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from './header/header.component';
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule,AddBookComponent],
+  imports: [RouterModule, CommonModule,AddBookComponent, HeaderComponent],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

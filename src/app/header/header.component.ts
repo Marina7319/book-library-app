@@ -1,17 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { AddBookComponent } from '../add-book/add-book.component';
 
 @Component({
-  selector: 'home',
+  selector: 'app-header',
   standalone: true,
   imports: [FormsModule, RouterModule, CommonModule, AddBookComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.css'
 })
-export class HomeComponent {
-
+export class HeaderComponent {
 
 }

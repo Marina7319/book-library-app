@@ -22,6 +22,7 @@ catch(err)
 var loginUserControllerFn = async (req, res) => {
     var result = null;
     try { 
+        
         result = await userService.loginuserDBService(req.body);
         if(result.status) {
             res.send({ "status": true, "message": result.msg });
@@ -35,31 +36,6 @@ var loginUserControllerFn = async (req, res) => {
     }
 }
 
-
-// var updateUserController = async (req, res) => 
-// {
-//     console.log(req.params.id);
-//     console.log(req.body);
-    
-//     var result = await userService.updateUserDBService(req.params.id, req.body);
-    
-//     if(result) { 
-//         res.send({"status": true, "message": "User Updated"});
-//     } else {
-//         res.send({"status": false, "message": "User Updated Failed"});
-//     }
-// }
-
-// var deleteUserController = async (req, res) => {
-//     console.log(req.params.id);
-//     var result = await userService.removeUserDbService(req.params.id);
-
-//     if(result) { 
-//         res.send({"status": true, "message": "User Deleted"});
-//     } else {
-//         res.send({"status": false, "message": "User Deleted Failed"});
-//     }
-// }
 
 var getBookConntrollerfn = async (req, res) => {
     var book = await userService.getBookFromDBService();

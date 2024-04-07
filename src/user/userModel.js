@@ -21,14 +21,24 @@ var userSchema = new Schema({
     }
 });
 
-// userSchema.pre("save", async function(next){
-//     const user = this;
-//     if(user.isModified("password"))
-//     {
-//         user.password = await bcrypt.hash(user.password, 8);
-//     }
-//     next();
-// });
+userSchema.pre("save", async function(next){
+    const user = this;
+    if(user.isModified("password"))
+    {
+        user.password = await bcrypt.hash(user.password, 8);
+    }
+    next();
+});
+
+userSchema.statics.findByCredentials = async(name, password) => { 
+    const user = await user.findOne((name));
+    const checks = await bcrypt.compare(password, user.password);
+    if(!checks)
+    {
+        throw new Error()
+    }
+    return user;
+}
 
 
 module.exports = mongoose.model('users', userSchema);

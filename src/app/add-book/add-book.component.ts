@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
-
 @Component({
   selector: 'add-book',
   standalone: true,
@@ -16,23 +15,12 @@ export class AddBookComponent {
   title: string ="";
   writer: string ="";
   genre: string = "";
-
-
-  
-    BooksArray : any[] = [];
-  
-    currentBookID = "";
-    
+  BooksArray : any[] = [];
+  currentBookID = "";
 
   
   constructor(private router: Router, private http: HttpClient) { 
-
     this.getAllBook();
-  }
-
-  ngOnInit(): void 
-  {
-
   }
 
   addingBook()
@@ -43,6 +31,7 @@ export class AddBookComponent {
       "writer" : this.writer,     
       "genre" : this.genre
     };
+
     this.http.post("http://localhost:8000/book/create",bodyData)
     .subscribe((resultData: any) =>
     {
@@ -51,12 +40,11 @@ export class AddBookComponent {
       this.title = ""; 
       this.writer = ""; 
       this.genre = "";
-    this.getAllBook();
+      this.getAllBook();
     });
-
   }
 
-  save() 
+  add() 
   {
     if(this.currentBookID == '') 
       {
@@ -67,7 +55,6 @@ export class AddBookComponent {
   }
 
   getAllBook() { 
-
     this.http.get("http://localhost:8000/book/getAll")
     .subscribe((resultData: any) => {
       console.log(resultData);
@@ -83,17 +70,14 @@ setDelete(data: any) {
 })
 }
   setUpdate(data: any) {
-
     this.title = data.title;
     this.writer = data.writer;
     this.genre = data.genre;
-
     this.currentBookID = data._id;
     alert(this.currentBookID);
   }
 
   UpdateRecords() {
-
     let bodyData = {
       "title" : this.title,
       "writer" : this.writer,
@@ -105,11 +89,6 @@ setDelete(data: any) {
       console.log(resultData);
       alert("Book Updated");
      this.getAllBook();
-    });
-    
+    });  
   }
-
-
-
-
 }

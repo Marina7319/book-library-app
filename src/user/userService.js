@@ -15,9 +15,9 @@ module.exports.getBookFromDBService = () => {
     });
 }
 
-module.exports.getDataFromDBService = (id) => { 
+module.exports.getDataFromDBService = () => { 
     return new Promise(function checkURL(resolve, reject) {
-        userModel.find(id, function returnData(error, result) {
+        userModel.find({}, function returnData(error, result) {
             if(error) { 
                 reject(false);
             } else { 
@@ -39,12 +39,6 @@ module.exports.createUserDBService =  (userDetails) => {
         userModelData.password = userDetails.password;
         var encrypted = encryptor.encrypt(userDetails.password);
         userModelData.password = encrypted;
-
-        const userModel = new users();
-            userModel.firstname =firstname;
-            userModel.lastname=lastname;
-            userModel.email=email;
-            userModel.password=password;
         
         userModelData.save(function resultHandle(error, result) { 
             if(error) { 
@@ -79,38 +73,6 @@ module.exports.loginuserDBService = (userDetails) => {
         });
     });
 }
-
-// module.exports.updateUserDBService = (id, userDetails) => {
-//     console.log(userDetails);
-//     return new Promise(function myFn(resolve, reject) {
-//         userModel.findOneAndUpdate(id, userDetails, function returnData(error, result) {
-//             if(error) 
-//             {
-//                 reject(false);
-//             }
-//             else 
-//             {
-//                 resolve(result);
-//             }
-//         });
-//     });
-// }
-
-
-// module.exports.removeUserDbService = (id) => {
-//     return new Promise(function myFn(resolve, reject) {
-//         userModel.findByIdAndDelete(id, function returnData(error, result) {
-//             if(error) 
-//             {
-//                 reject(false);
-//             }
-//             else 
-//             {
-//                 resolve(result);
-//             }
-//         });
-//     });
-// }
 
 
 module.exports.createBookDBService = (bookDetails) => { 
