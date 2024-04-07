@@ -1,7 +1,5 @@
 var userModel = require('./userModel');
 var bookModel = require('./bookModel');
-//var key = '1234567890123456';
-//var encryptor = require('simple-encryptor')(key);
 var jwt = require('jsonwebtoken');
 
 module.exports.getBookFromDBService = () => { 
@@ -27,7 +25,6 @@ module.exports.getDataFromDBService = () => {
         });
     });
 }
-
 
 
 module.exports.createUserDBService =  (userDetails) => { 

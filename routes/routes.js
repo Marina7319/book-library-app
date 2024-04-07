@@ -18,53 +18,36 @@ router.post('/create', async (req, res) => {
     let password = req.body.password
     let lastname = req.body.lastname
     let firstname = req.body.firstname
-
-    //const salt = await bcrypt.genSalt(10)
-   // const hashedPassword = await bcrypt.hash(password, salt)
-
     const record = await userModel.findOne({email:email})
-
     if(record) {
         return res.status(400).send({
             messagge:"Email is already registered!"
         });
     } else {
-
-    
-
-    const user = new userModel({
+        const user = new userModel({
         firstname: firstname,
         email:email,
         password:password,
         lastname:lastname
     })
-
     const result = await user.save();
-
     // JWT Token 
-    // const {_id} = await result.toJSON();
-    // const token = jwt.sign({_id:_id}, "secret")
+    const {_id} = await result.toJSON();
+    const token = jwt.sign({_id:_id}, "secret")
 
-    // res.cookie("jwt", token, {
-    //     httpOnly:true,
-    //     maxage:2
-    // })
+    res.cookie("jwt", token, {
+        httpOnly:true,
+        maxage:2*30*30*1000
+    })
     // res.status({
     //     message:"success"
     // })
 
     res.json({
         user:result
-    })
-    
+    })   
 }
 })
-
-// router.get('/user', (req, res) => { 
-//     res.send("user");
-// })
-
-
 
 // router.route('/user/login').post(userController.logoutUserControllerFn);
 // router.route('/user/logout').post(userController.loginUserControllerFn);
@@ -78,45 +61,7 @@ router.post('/create', async (req, res) => {
 
 
 
-// router.post('/user/create', async (req, res) => { 
-//     let firstname = req.body.firstname
-//     let lastname = req.body.lastname
-//     let email = req.body.email
-//     let password = req.body.password
 
-//     const record = await userModel.findOne({email:email});
-
-//     if(record) { 
-//         return res.status(400).send({
-//             message:"Email is already registered"
-//         });
-//     } else {
-
-//         const user = new userModel({
-//             firstname: firstname,
-//             lastname: lastname,
-//             email: email,
-//             password: password
-//         });
-
-
-//         const result = await user.save();
-//         res.json({
-//             user:result
-//         })
-//         //JWT 
-//         const {_id} = await result.toJSON()
-//         const token = jwt.sign({_id:_id}, "secret");
-//         res.cookie("jwt", token, {
-//             httpOnly: true,
-//             maxAge: 24*60*60*1000
-//         })
-
-//         res.send({
-//             message:"success"
-//         })
-//     } 
-// })
 
 router.get("/username", async (req, res) => { 
     try {
