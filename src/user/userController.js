@@ -25,9 +25,9 @@ var createUserControllerFn = async (req, res) => {
 
 
         const result = await user.save();
-        // res.json({
-        //     user:result
-        // })
+        res.json({
+            user:result
+        })
         //JWT 
         const {_id} = await result.toJSON()
         const token = jwt.sign({_id:_id}, "secret");
