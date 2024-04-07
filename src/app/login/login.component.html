@@ -6,13 +6,15 @@
        <label for="username" class="form-label">
        Username:
        </label>
-       <input  type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" id="stname"  class="form-control" placeholder="jon.doe@email">   
+       <input  type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" id="stname"  class="form-control" placeholder="jon.doe@email">
     </div>
     <div class="mb-3">
        <label for="password" class="form-label">Password:</label>
-       <input type="password"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" id="stname" class="form-control" placeholder="******">
-    </div>
-    <button type="submit" class="btn btn-primary" (click)="login()">
+       <input type="password"  [(ngModel)]="password" [ngModelOptions]="{standalone: true}" id="stname" class="form-control" placeholder="******" >
+       
+ </div>
+   
+    <button type="submit" [style.backgroundColor] = "isActive ? 'blue':'gray'" class="btn btn-primary" (click)="login()">
     Login
     </button>
     <div class="mt-2">

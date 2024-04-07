@@ -2,6 +2,7 @@ var userModel = require('./userModel');
 var bookModel = require('./bookModel');
 var key = '1234567890123456';
 var encryptor = require('simple-encryptor')(key);
+var jwt = require('jsonwebtoken');
 
 module.exports.getBookFromDBService = () => { 
     return new Promise(function checkURL(resolve, reject) {
@@ -40,6 +41,7 @@ module.exports.createUserDBService =  (userDetails) => {
         var encrypted = encryptor.encrypt(userDetails.password);
         userModelData.password = encrypted;
         
+
         userModelData.save(function resultHandle(error, result) { 
             if(error) { 
                 reject(false);
@@ -47,6 +49,8 @@ module.exports.createUserDBService =  (userDetails) => {
                 resolve(true);
             }
         });
+    
+
     })
 }
 

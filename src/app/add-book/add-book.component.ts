@@ -33,7 +33,7 @@ export class AddBookComponent {
     };
 
     this.http.post("http://localhost:8000/book/create",bodyData)
-    .subscribe((resultData: any) =>
+    .subscribe((resultData) =>
     {
       console.log(resultData);
       alert("Book Added To List Successfully");

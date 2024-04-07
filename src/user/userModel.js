@@ -21,6 +21,7 @@ var userSchema = new Schema({
     }
 });
 
+module.exports = mongoose.model('user', userSchema);
 userSchema.pre("save", async function(next){
     const user = this;
     if(user.isModified("password"))
@@ -40,5 +41,3 @@ userSchema.statics.findByCredentials = async(name, password) => {
     return user;
 }
 
-
-module.exports = mongoose.model('users', userSchema);

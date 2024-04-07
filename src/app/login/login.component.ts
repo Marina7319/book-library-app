@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { RegisterComponent } from '../register/register.component';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @Component({
@@ -14,16 +15,31 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  form: FormGroup;
 
+  isActive = true;
   email: string = '';
   password: string = '';
 
   isLogin: boolean = true;
 
-  errorMessage: string = "";
+  errorMessage: string = "";  
+  loginForm() {
+    // var result = this.loginService.login(this.form.controls['username'].value,
+    //   this.form.controls['password'].value);
 
-  constructor(private router: Router, private http: HttpClient) {
+    // if (!result) {
+    //   this.form.controls['password'].setErrors({
+    //     invalidLogin: true
+    //   });
+    // }
+  }
 
+  constructor(private router: Router, private http: HttpClient, fb: FormBuilder) {
+    this.form = fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.compose([Validators.required])]
+    })
   }
 
   login() {
@@ -32,8 +48,6 @@ export class LoginComponent {
       email: this.email,
       password: this.password,
     };
-    console.log(this.email);
-    console.log(this.password);
     this.http.post("http://localhost:8000/user/login", bodyDate)
       .subscribe((resultData: any) => {
         console.log(resultData);
