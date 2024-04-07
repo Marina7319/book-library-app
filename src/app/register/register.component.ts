@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
@@ -8,40 +8,58 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'register',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 
 export class RegisterComponent implements OnInit {
-
   form!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {}
-  ngOnInit(): void {
+
+  constructor(
+    private formBuilder: FormBuilder,
+     private http: HttpClient,
+      private router: Router
+    ) 
+    {
+
+    }
+
+  ngOnInit():void{
     this.form = this.formBuilder.group({
       firstname: "",
       lastname:"",
       email:"",
-      passwrod:"",
+      password:"",
+    });
+  }
 
-    })
+  validateEmail = (email:any) => {
+  var validRegex = /[a-zA-Z0-9]+@[a-zA-Z0-9]/;
+
+if(email.match(validRegex)) {
+  return true;
+} else {
+  return false;
+}
   }
 
   submit(): void{
-
     let user = this.form.getRawValue();
-console.log(user);
-    if(user.lastname == "" || user.email == "" || user.firstname == "" || user.password == "") {
-          alert("Student Not Registered Successfully");
-        } else {
-              this.http.post("http://localhost:8000/user/create", user, {
-                withCredentials: true
-              }).subscribe(() =>
-                this.router.navigate(['/']) ,(err) => {
-                alert("Error");
-              })      
-        }//this.router.navigate(['/'])
-  }
+    console.log(user);
+     if(user.lastname == "" || user.email == "" || user.firstname == "" || user.password == "") {
+         //  alert("Student Not Registered Successfully");
+         } else if(this.validateEmail(user.email)) {
+          console.log('ERROR');
+         }else {
+               this.http.post("http://localhost:8000/user/create", user, {
+                 withCredentials: true
+               }).subscribe(() =>
+                 this.router.navigate(['/']) ,(err) => {
+                // alert("Error");
+               })      
+         }
+}
 //this.router.navigateByUrl('/home');
  // form: FormGroup;
   // firstname: string ='';

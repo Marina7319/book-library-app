@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
+
 var userSchema = new Schema({
     firstname: {
         type: String,
@@ -12,16 +12,15 @@ var userSchema = new Schema({
     },
     email: {
         type: String,
-        unique:true,
         require: true
     }, 
     password: {
         type: String,
         require: true
-    }
+    },
 });
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('users', userSchema);
 // userSchema.pre("save", async function(next){
 //     const user = this;
 //     if(user.isModified("password"))

@@ -13,7 +13,7 @@ import { Emitters } from '../emitters/emitter';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent  {
+export class HomeComponent implements OnInit {
   messagge = ''
 
 constructor(private http: HttpClient) {
