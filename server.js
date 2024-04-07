@@ -38,4 +38,6 @@ console.log("App is listen on port 8000");
 })
 })
 server.use(express.json());
-server.use("/user", routes);
+//server.use("/user", routes);
+//server.use("/book", routes);
+server.use(routes);

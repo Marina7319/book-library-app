@@ -1,11 +1,42 @@
 var {Router} = require('express');
 var userModel = require('../src/user/userModel');
+var bookModel = require('../src/user/bookModel');
 var userController = require('../src/user/userController');
 var jwt = require('jsonwebtoken');
 
 const router = Router();
 
-router.post('/logout', (req,res) => {
+router.post('/book/add', async (req, res) => {
+  
+    let title = req.body.title
+    let writer = req.body.writer
+    let genre = req.body.genre
+
+    const record = await bookModel.findOne({title:title})
+    if(record) {
+        return res.status(400).send({
+            messagge:"Book is added!"
+        });
+    } else {
+        const book = new bookModel({
+        title: title,
+        writer:writer,
+        genre:genre,
+    })
+    const result = await book.save();
+    
+    // res.status({
+    //     message:"success"
+    // })
+
+    res.json({
+        user:result
+    })   
+}
+})
+
+
+router.post('/user/logout', (req,res) => {
     res.cookie("jwt", {maxAge:0})
 
     res.send({
@@ -13,7 +44,7 @@ router.post('/logout', (req,res) => {
     })
 })
 
-router.post('/create', async (req, res) => {
+router.post('/user/create', async (req, res) => {
     let email = req.body.email
     let password = req.body.password
     let lastname = req.body.lastname
@@ -59,11 +90,14 @@ router.post('/create', async (req, res) => {
 
 //router.route('/user').get(userController.userControllerFn);
 
+router.get("/book/list", async (req, res) => { 
+        const book = await bookModel.find({}, result);
+        res.send(book)
+});
 
 
 
-
-router.get("/username", async (req, res) => { 
+router.get("/user/username", async (req, res) => { 
     try {
         const cookie = req.cookies['jwt']
 
@@ -84,7 +118,7 @@ return res.status(401).send({
     }
 });
 
-router.post("/login", async(req, res) => {
+router.post("/user/login", async(req, res) => {
     const user = await userModel.findOne({email:req.body.email})
     if(!user) {
         return res.status(404).send({
