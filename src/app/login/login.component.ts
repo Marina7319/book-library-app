@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { HomeComponent } from '../home/home.component';
 import { RegisterComponent } from '../register/register.component';
-import { routes } from '../app.routes';
 import { CommonModule } from '@angular/common';
 
 

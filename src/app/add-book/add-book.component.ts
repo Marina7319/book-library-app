@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+
 
 @Component({
-  selector: 'app-add-book',
+  selector: 'add-book',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, RouterModule, CommonModule],
   templateUrl: './add-book.component.html',
   styleUrl: './add-book.component.css'
 })
@@ -16,15 +17,17 @@ export class AddBookComponent {
   writer: string ="";
   genre: string = "";
 
+
+  
+    BooksArray : any[] = [];
+  
+    currentBookID = "";
+    
+
   
   constructor(private router: Router, private http: HttpClient) { 
-    // this.getUser();
-    // const localUser = localStorage.getItem('loggedUser');
-    // if(localUser != null) 
-    //   { 
-    //     this.loggedUser = JSON.parse(localUser);
-    //   }
-    this.getAllStudent();
+
+    this.getAllBook();
   }
 
   ngOnInit(): void 
@@ -48,41 +51,65 @@ export class AddBookComponent {
       this.title = ""; 
       this.writer = ""; 
       this.genre = "";
+    this.getAllBook();
     });
 
   }
 
   save() 
   {
-    this.addingBook();
+    if(this.currentBookID == '') 
+      {
+        this.addingBook();
+      } else { 
+        this.UpdateRecords();
+      }
   }
 
-  Books : any[] = [];
+  getAllBook() { 
 
-  currentUserID = "";
-  
-
-
-
-
-
-
-
-
-  getUser() { 
-
-   
-    let bodyDate = {
-      email: this.email,
-      password: this.password,
-    };
-    console.log(this.email);
-    console.log(this.password);
-    this.http.get("http://localhost:8000/user/getAll")
+    this.http.get("http://localhost:8000/book/getAll")
     .subscribe((resultData: any) => {
       console.log(resultData);
-      this.Users = resultData.data;
-    })
+      this.BooksArray = resultData.data;
+    });
   }
+
+setDelete(data: any) { 
+  this.http.delete("http://localhost:8000/book/delete"+ "/"+ data._id).subscribe((resultData: any) => {
+  console.log(resultData);
+  alert("Book Deleted");
+  this.getAllBook();
+})
+}
+  setUpdate(data: any) {
+
+    this.title = data.title;
+    this.writer = data.writer;
+    this.genre = data.genre;
+
+    this.currentBookID = data._id;
+    alert(this.currentBookID);
+  }
+
+  UpdateRecords() {
+
+    let bodyData = {
+      "title" : this.title,
+      "writer" : this.writer,
+      "genre" : this.genre
+    };
+
+    this.http.patch("http://localhost:8000/book/update"+"/"+this.currentBookID,bodyData).subscribe((resultData: any) =>
+    {
+      console.log(resultData);
+      alert("Book Updated");
+     this.getAllBook();
+    });
+    
+  }
+
+
+
 
 }

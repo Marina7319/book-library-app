@@ -80,37 +80,37 @@ module.exports.loginuserDBService = (userDetails) => {
     });
 }
 
-module.exports.updateUserDBService = (id, userDetails) => {
-    console.log(userDetails);
-    return new Promise(function myFn(resolve, reject) {
-        userModel.findOneAndUpdate(id, userDetails, function returnData(error, result) {
-            if(error) 
-            {
-                reject(false);
-            }
-            else 
-            {
-                resolve(result);
-            }
-        });
-    });
-}
+// module.exports.updateUserDBService = (id, userDetails) => {
+//     console.log(userDetails);
+//     return new Promise(function myFn(resolve, reject) {
+//         userModel.findOneAndUpdate(id, userDetails, function returnData(error, result) {
+//             if(error) 
+//             {
+//                 reject(false);
+//             }
+//             else 
+//             {
+//                 resolve(result);
+//             }
+//         });
+//     });
+// }
 
 
-module.exports.removeUserDbService = (id) => {
-    return new Promise(function myFn(resolve, reject) {
-        userModel.findByIdAndDelete(id, function returnData(error, result) {
-            if(error) 
-            {
-                reject(false);
-            }
-            else 
-            {
-                resolve(result);
-            }
-        });
-    });
-}
+// module.exports.removeUserDbService = (id) => {
+//     return new Promise(function myFn(resolve, reject) {
+//         userModel.findByIdAndDelete(id, function returnData(error, result) {
+//             if(error) 
+//             {
+//                 reject(false);
+//             }
+//             else 
+//             {
+//                 resolve(result);
+//             }
+//         });
+//     });
+// }
 
 
 module.exports.createBookDBService = (bookDetails) => { 

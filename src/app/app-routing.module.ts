@@ -1,22 +1,17 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { CommonModule } from '@angular/common';
-import { AppModule } from './app.module';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { AddBookComponent } from './add-book/add-book.component';
+
+
 const routes: Routes = [
-    {path: 'login',component: LoginComponent,pathMatch: 'full'},
-    {path: 'home',component: HomeComponent,pathMatch: 'full'},
-    {path: 'register',component: RegisterComponent,pathMatch: 'full'},
-    {path: '', redirectTo: 'home', pathMatch: 'full'}
+    {path: '',component: LoginComponent},
+    {path: 'home',component: HomeComponent},
+    {path: 'register',component: RegisterComponent},
+    {path: 'add-book', component: AddBookComponent},
+    {path: '', redirectTo: 'home'}
 ];
 
 @NgModule({
