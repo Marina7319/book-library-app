@@ -7,8 +7,8 @@ import { AddBookComponent } from './add-book/add-book.component';
 
 
 const routes: Routes = [
-    {path: '',component: LoginComponent},
-    {path: 'home',component: HomeComponent},
+    {path: 'login',component: LoginComponent},
+    {path: '',component: HomeComponent},
     {path: 'register',component: RegisterComponent},
     {path: 'add-book', component: AddBookComponent},
     {path: '', redirectTo: 'home'}

@@ -13,7 +13,7 @@ var createUserControllerFn = async (req, res) => {
     if(record) { 
         return res.status(400).send({
             message:"Email is already registered"
-        })
+        });
     } else {
 
         const user = new userModel({
@@ -21,63 +21,88 @@ var createUserControllerFn = async (req, res) => {
             lastname: lastname,
             email: email,
             password: password
-        })
+        });
 
 
         const result = await user.save();
         // res.json({
         //     user:result
         // })
-        // JWT 
-        const {_id} =  result.toJSON()
+        //JWT 
+        const {_id} = await result.toJSON()
         const token = jwt.sign({_id:_id}, "secret");
         res.cookie("jwt", token, {
             httpOnly: true,
             maxAge: 24*60*60*1000
         })
 
-        // res.send({
-        //     message:success
-        // })
-
-        
-
-
-
-    try {
-        console.log(req.body);
-    var status = await userService.createUserDBService(req.body);
-    console.log(status);
-    if (status) {
-        res.send({ "status": true, "message": "User created successfully" });
-
-    } else {
-        res.send({ "status": false, "message": "Error creating user" });
+        res.send({
+            message:"success"
+        })
     }
 
-} 
-catch(err)
-{
-    console.log(err);
-}
-    }
-}
+    // try {
+    //     console.log(req.body);
+    // var status = await userService.createUserDBService(req.body);
+    // console.log(status);
+    // if (status) {
+    //     res.send({ "status": true, "message": "User created successfully" });
+
+    // } else {
+    //     res.send({ "status": false, "message": "Error creating user" });
+    // }
+
+};
+// catch(err)
+// {
+//     console.log(err);
+// }
+//     }
+// }
 
 var loginUserControllerFn = async (req, res) => {
-    var result = null;
-    try { 
-        
-        result = await userService.loginuserDBService(req.body);
-        if(result.status) {
-            res.send({ "status": true, "message": result.msg });
-        } else { 
-            res.send({"status": false, "message": result.msg });
-        }
-    } 
-    catch (error) { 
-        console.log(error);
-        res.send({"status": false, "message": error.msg });
+
+    const user = await userModel.findOne({email:req.body.email})
+    if(!user) {
+        return res.status(404).send({
+            message:"User not Found"
+        });
     }
+
+    if(!(await bcrypt.compare(req.body.password,user.password)))
+   //if(req.body.password === user.password)
+    {
+        return res.status(400).send({
+            message:"Password is incorrect"
+        })
+    }
+
+   const token = jwt.sign({_id:user._id}, "secret")
+
+    res.cookie("jwt", token, {
+        httpOnly:true,
+        maxAge:24*60*60*1000 //
+    })
+
+    res.send(
+        {
+            message:"success"
+        }
+    )
+    // var result = null;
+    // try { 
+        
+    //     result = await userService.loginuserDBService(req.body);
+    //     if(result.status) {
+    //         res.send({ "status": true, "message": result.msg });
+    //     } else { 
+    //         res.send({"status": false, "message": result.msg });
+    //     }
+    // } 
+    // catch (error) { 
+    //     console.log(error);
+    //     res.send({"status": false, "message": error.msg });
+    // }
 }
 
 
@@ -122,4 +147,34 @@ var deleteBookController = async (req, res) => {
     }
 }
 
-module.exports = {deleteBookController, updateBookController, createBookControllerFn , getBookConntrollerfn, createUserControllerFn, loginUserControllerFn };
+var userControllerFn = async (req, res) => {
+    try { 
+        const cookie = req.cookies['jwt']
+        const claims = jwt.verify(cookie, "secret")
+
+        if(!claims) {
+            return res.status(401).send({
+              //  message: "unautheniticated"
+            })
+        }
+
+        const user = await userModel.findOne({_id:claims._id})
+        const {password, ...data} = await user.toJSON()
+
+        res.send(data)
+    } catch(err) {
+        return res.status(401).send({
+            message:'unauthenticated'
+        })
+
+    }
+}
+
+var logoutUserControllerFn = async (req, res) => {
+  //  res.cookie("jwt", "", {maxAge:0})
+
+   // res.send({message:"success"})
+  
+}
+
+module.exports = {logoutUserControllerFn, userControllerFn, deleteBookController, updateBookController, createBookControllerFn , getBookConntrollerfn, createUserControllerFn, loginUserControllerFn };

@@ -1,7 +1,7 @@
 var userModel = require('./userModel');
 var bookModel = require('./bookModel');
-var key = '1234567890123456';
-var encryptor = require('simple-encryptor')(key);
+//var key = '1234567890123456';
+//var encryptor = require('simple-encryptor')(key);
 var jwt = require('jsonwebtoken');
 
 module.exports.getBookFromDBService = () => { 
@@ -38,8 +38,8 @@ module.exports.createUserDBService =  (userDetails) => {
         userModelData.lastname = userDetails.lastname;
         userModelData.email = userDetails.email;
         userModelData.password = userDetails.password;
-        var encrypted = encryptor.encrypt(userDetails.password);
-        userModelData.password = encrypted;
+      //  var encrypted = encryptor.encrypt(userDetails.password);
+        //userModelData.password = encrypted;
         
 
         userModelData.save(function resultHandle(error, result) { 
@@ -62,9 +62,9 @@ module.exports.loginuserDBService = (userDetails) => {
             } else {
                 if(result != undefined && result != null) 
                 {
-                    var decrypted = encryptor.decrypt(result.password);
+                  //  var decrypted = encryptor.decrypt(result.password);
 
-                    if(decrypted == userDetails.password)
+                    if(result.password == userDetails.password)
                     {
                         resolve({status: true, msg: "User Validated Successfully"});
                     } else {

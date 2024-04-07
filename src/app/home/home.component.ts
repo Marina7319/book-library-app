@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AddBookComponent } from '../add-book/add-book.component';
 import { HttpClient } from '@angular/common/http';
+import { Emitters } from '../emitters/emitter';
 
 @Component({
   selector: 'home',
@@ -12,18 +13,20 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
-message!: "";
+export class HomeComponent  {
+  messagge = ''
 
 constructor(private http: HttpClient) {
   
 }
 ngOnInit(): void {
   this.http.get('http://localhost:8000/user', {withCredentials:true})
-  .subscribe((res: any) => {
-    this.message = `${}`
+  .subscribe((res:any) => {
+    this.messagge = `Hi ${res.name}`;
+    Emitters.authEmitter.emit(true);
   }, (err) => { 
-    this.message = err
+    this.messagge = "You are not logged in"
+    Emitters.authEmitter.emit(false);
   }
 );
 }

@@ -15,50 +15,61 @@ import { BrowserModule } from '@angular/platform-browser';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  form: FormGroup;
 
-  isActive = true;
+
+
   email: string = '';
   password: string = '';
 
   isLogin: boolean = true;
 
   errorMessage: string = "";  
-  loginForm() {
-    // var result = this.loginService.login(this.form.controls['username'].value,
-    //   this.form.controls['password'].value);
 
-    // if (!result) {
-    //   this.form.controls['password'].setErrors({
-    //     invalidLogin: true
-    //   });
-    // }
+
+  constructor(
+    private router: Router,
+     private http: HttpClient, 
+     fb: FormBuilder) {
+
   }
 
-  constructor(private router: Router, private http: HttpClient, fb: FormBuilder) {
-    this.form = fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.compose([Validators.required])]
-    })
-  }
+  ngOnInit(): void { 
 
-  login() {
+  }
+  login():void {
+
+
 
     let bodyDate = {
       email: this.email,
       password: this.password,
     };
-    this.http.post("http://localhost:8000/user/login", bodyDate)
-      .subscribe((resultData: any) => {
-        console.log(resultData);
-
-        if (resultData.status) {
-          this.router.navigateByUrl('/home');
-        }
-        else {
-          alert("Incorrect Email or Password");
+    if(bodyDate.email == "" || bodyDate.password == "") {
+              console.log("Error login");
+          alert("Incorrect Email or Password 1");
+    } else {
+      this.http.post("http://localhost:8000/user/login", bodyDate, {
+        withCredentials:true
+      })
+      .subscribe(
+        (res) => this.router.navigate(['/home']),
+        (err) => { 
           console.log("Error login");
+          alert("Incorrect Email or Password 2");
         }
-      });
+      )
+    }
+    // this.http.post("http://localhost:8000/user/login", bodyDate)
+    //   .subscribe((resultData: any) => {
+    //     console.log(resultData);
+
+    //     if (resultData.status) {
+    //       this.router.navigateByUrl('/home');
+    //     }
+    //     else {
+    //       console.log("Error login");
+    //       alert("Incorrect Email or Password");
+    //     }
+    //   });
   }
 }
