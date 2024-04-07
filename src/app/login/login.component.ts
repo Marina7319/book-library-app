@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { RegisterComponent } from '../register/register.component';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -14,62 +14,44 @@ import { BrowserModule } from '@angular/platform-browser';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
 
-
-  email: string = '';
-  password: string = '';
-
-  isLogin: boolean = true;
-
-  errorMessage: string = "";  
-
+  form!: FormGroup;
 
   constructor(
-    private router: Router,
-     private http: HttpClient, 
-     fb: FormBuilder) {
+    private formBuilder: FormBuilder,
+     private http: HttpClient,
+      private router: Router
+    ) 
+    {
 
+    }
+
+  ngOnInit():void{
+    this.form = this.formBuilder.group({
+      email:"",
+      password:"",
+    });
   }
 
-  ngOnInit(): void { 
 
-  }
   login():void {
-
-
-
-    let bodyDate = {
-      email: this.email,
-      password: this.password,
-    };
-    if(bodyDate.email == "" || bodyDate.password == "") {
-              console.log("Error login");
-          alert("Incorrect Email or Password 1");
-    } else {
-      this.http.post("http://localhost:8000/user/login", bodyDate, {
+    let user = this.form.getRawValue();
+    console.log(user);
+     if(user.lastname == "" || user.email == "" || user.firstname == "" || user.password == "") {
+         //  alert("Student Not Registered Successfully");
+         } else {
+      this.http.post("http://localhost:8000/user/login", user, {
         withCredentials:true
       })
       .subscribe(
-        (res) => this.router.navigate(['/home']),
+        (res) => this.router.navigate(['/']),
         (err) => { 
           console.log("Error login");
           alert("Incorrect Email or Password 2");
         }
       )
     }
-    // this.http.post("http://localhost:8000/user/login", bodyDate)
-    //   .subscribe((resultData: any) => {
-    //     console.log(resultData);
-
-    //     if (resultData.status) {
-    //       this.router.navigateByUrl('/home');
-    //     }
-    //     else {
-    //       console.log("Error login");
-    //       alert("Incorrect Email or Password");
-    //     }
-    //   });
   }
 }

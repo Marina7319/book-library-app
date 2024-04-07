@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Emitters } from '../emitters/emitter';
 
 @Component({
-  selector: 'app-header',
+  selector: 'header',
   standalone: true,
   imports: [FormsModule, RouterModule, CommonModule, AddBookComponent],
   templateUrl: './header.component.html',
@@ -25,8 +25,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void { 
-    this.http.post('http://localhost:5000/api/logout', {},{withCredentials:true})
-    .subscribe(() => this.authenticated = true);
+    this.http.post('http://localhost:8000/user/logout', {},{withCredentials:true})
+    .subscribe(() => this.authenticated = false);
   }
 
 }

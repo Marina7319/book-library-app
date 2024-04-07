@@ -34,23 +34,13 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  validateEmail = (email:any) => {
-  var validRegex = /[a-zA-Z0-9]+@[a-zA-Z0-9]/;
 
-if(email.match(validRegex)) {
-  return true;
-} else {
-  return false;
-}
-  }
 
   submit(): void{
     let user = this.form.getRawValue();
     console.log(user);
      if(user.lastname == "" || user.email == "" || user.firstname == "" || user.password == "") {
-         //  alert("Student Not Registered Successfully");
-         } else if(this.validateEmail(user.email)) {
-          console.log('ERROR');
+         //  alert("Student Not Registered Successfully");        
          }else {
                this.http.post("http://localhost:8000/user/create", user, {
                  withCredentials: true

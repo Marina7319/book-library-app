@@ -1,13 +1,16 @@
 <div class="mt-2">
    <ul *ngIf = "!authenticated">
-       <li><a  routerLink="/create">Register</a></li>
+       <li><a  routerLink="/register">Register</a></li>
     <li>
      <a  routerLink="/login">Login</a></li>
      <li><a routerLink="/">Home</a></li>
      </ul>
-
+     
      <ul *ngIf = "authenticated">
-   <li>
-    <a  [routerLink]="['/logout']" (click)="logout()">Logout</a></li>
+       <li>
+     
+    <a  routerLink="/login" (click)="logout()">Logout</a></li>
     </ul>
-  </div>
+</div>
+
+  

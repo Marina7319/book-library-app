@@ -5,6 +5,14 @@ var jwt = require('jsonwebtoken');
 
 const router = Router();
 
+router.post('/logout', (req,res) => {
+    res.cookie("jwt", {maxAge:0})
+
+    res.send({
+        message:"success"
+    })
+})
+
 router.post('/create', async (req, res) => {
     let email = req.body.email
     let password = req.body.password
@@ -52,11 +60,11 @@ router.post('/create', async (req, res) => {
 }
 })
 
-router.get('/user', (req, res) => { 
-    res.send("user");
-})
+// router.get('/user', (req, res) => { 
+//     res.send("user");
+// })
 
-module.exports = router
+
 
 // router.route('/user/login').post(userController.logoutUserControllerFn);
 // router.route('/user/logout').post(userController.loginUserControllerFn);
@@ -68,7 +76,7 @@ module.exports = router
 
 //router.route('/user').get(userController.userControllerFn);
 
-module.exports = router;
+
 
 // router.post('/user/create', async (req, res) => { 
 //     let firstname = req.body.firstname
@@ -110,7 +118,7 @@ module.exports = router;
 //     } 
 // })
 
-router.get("/user", async (req, res) => { 
+router.get("/username", async (req, res) => { 
     try {
         const cookie = req.cookies['jwt']
 
@@ -130,3 +138,30 @@ return res.status(401).send({
 })
     }
 });
+
+router.post("/login", async(req, res) => {
+    const user = await userModel.findOne({email:req.body.email})
+    if(!user) {
+        return res.status(404).send({
+            message:"User not Found"
+        })
+    }
+    if(!(req.body.password === user.password))
+    {
+        return res.status(400).send({
+            message:"Password is incorrect"
+        })
+    }
+
+    const token = jwt.sign({_id:user._id}, "secret key")
+
+    res.cookie("jwt", token, {
+        httpOnly:true,
+        maxAge:24*60860*1000 
+    })
+
+    res.send({
+        message:"success"
+    })
+})
+module.exports = router
