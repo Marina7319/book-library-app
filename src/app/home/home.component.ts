@@ -14,7 +14,8 @@ import { Emitters } from '../emitters/emitter';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  messagge!: string
+  messagge = ''
+ 
 
 constructor(private http: HttpClient) {
   
@@ -22,10 +23,10 @@ constructor(private http: HttpClient) {
 ngOnInit(): void {
   this.http.get("http://localhost:8000/user/username", {withCredentials:true})
   .subscribe((res:any) => {
-    this.messagge = `${res.firstname}`
+    this.messagge = `Hi ${res.firstname}`
     Emitters.authEmitter.emit(true);
   }, (err) => { 
-    this.messagge = `error you are not logged in ${err}`
+    this.messagge = `error you are not logged in`
     Emitters.authEmitter.emit(false);
   }
 );

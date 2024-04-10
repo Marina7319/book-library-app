@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'login',
+  selector: '',
   standalone: true,
   imports: [FormsModule, RegisterComponent, ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './login.component.html',
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       } else {
         this.http.post("http://localhost:8000/user/login", user, {
         withCredentials:true
-      }).subscribe((res) => this.router.navigate(['/']),
+      }).subscribe((res) => this.router.navigate(['/home']),
       (err) => { 
         console.log("Error login");
         alert("Incorrect Email or Password 2");

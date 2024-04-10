@@ -80,22 +80,30 @@ router.post('/user/create', async (req, res) => {
 }
 })
 
-// router.route('/user/login').post(userController.logoutUserControllerFn);
-// router.route('/user/logout').post(userController.loginUserControllerFn);
-// router.route('/user/create').post(userController.createUserControllerFn);
-// router.route('/book/getAll').get(userController.getBookConntrollerfn);
-// router.route('/book/create').post(userController.createBookControllerFn);
-// router.route('/book/update/:id').patch(userController.updateBookController);
-// router.route('/book/delete/:id').delete(userController.deleteBookController);
 
-//router.route('/user').get(userController.userControllerFn);
+//router.route('/book/delete/:id').delete(userController.deleteBookController);
 
-router.get("/book/list", async (req, res) => { 
-        const book = await bookModel.find({}, result);
-        res.send(book)
+
+router.get("/book/list",  (req, res) => { 
+      bookModel.find().then(rec => {
+         if(rec) {
+            res.send(rec);
+         } else { 
+            res.send([]);
+         }
+      })
 });
 
-
+router.get("/book/edit", async (req, res) => { 
+    const book = await bookModel.find(title);
+    bookModel.findOne({_id}).then(rec => {
+       if(rec) {
+          res.send(rec);
+       } else { 
+          res.send([]);
+       }
+    })
+});
 
 router.get("/user/username", async (req, res) => { 
     try {
@@ -109,7 +117,7 @@ router.get("/user/username", async (req, res) => {
         }
 
         const user = await userModel.findOne({_id:claims._id})
-        const {password, ...data} =await user.toJSON();
+        const {password, ...data} = await user.toJSON();
         res.send(data);
     } catch(err){
 return res.status(401).send({
@@ -125,18 +133,18 @@ router.post("/user/login", async(req, res) => {
             message:"User not Found"
         })
     }
-    if(!(req.body.password === user.password))
+    if(req.body.password != user.password)
     {
         return res.status(400).send({
             message:"Password is incorrect"
         })
     }
 
-    const token = jwt.sign({_id:user._id}, "secret key")
+    const token = jwt.sign({_id:user._id}, "secret")
 
     res.cookie("jwt", token, {
         httpOnly:true,
-        maxAge:24*60860*1000 
+        maxAge:24*60*60*1000 
     })
 
     res.send({

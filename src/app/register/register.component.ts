@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
       this.http.post("http://localhost:8000/user/create", user, {
       withCredentials: true
       }).subscribe(() =>
-          this.router.navigate(['/']) ,(err) => {
+          this.router.navigate(['/home']) ,(err) => {
             alert("Error");
       })      
     }

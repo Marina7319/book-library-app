@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { map } from 'rxjs';
+
+
+
 
 
 @Component({
@@ -15,8 +19,15 @@ import { Router, RouterModule } from '@angular/router';
 export class AddBookComponent {
 
   form!: FormGroup;
-
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router)  {     }
+  result = []
+  searchControl = new FormControl();
+  arr = []
+  array = []
+  
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router)  
+  {   
+this.getBook();
+  }
 
   ngOnInit():void{
     this.form = this.formBuilder.group({
@@ -24,19 +35,30 @@ export class AddBookComponent {
       writer:"",
       genre:""
     });
-  }
+    this.http.get("http://localhost:8000/book/list")
+    .subscribe((res:any) => {
+      this.arr = res
+    }
+  );
+}
+
 
   submit(): void{
     let book = this.form.getRawValue();
     console.log(book);
     if(book.title == "" || book.writer == "" || book.genre == "") {
-      alert("Student Not Registered Successfully");        
+      alert("Book Not Added Successfully");        
     }else {
       this.http.post("http://localhost:8000/book/add", book).subscribe(() =>
           this.router.navigate(['/']) ,(err) => {
             alert("Error");
       })      
     }
+  }
+
+  getBook() {
+    return this.http.get("http://localhost:8000/book/list").pipe(
+    map(res=> console.log(res)));
   }
 //   title: string ="";
 //   writer: string ="";
@@ -88,13 +110,13 @@ export class AddBookComponent {
 //     });
 //   }
 
-// setDelete(data: any) { 
-//   this.http.delete("http://localhost:8000/book/delete"+ "/"+ data._id).subscribe((resultData: any) => {
-//   console.log(resultData);
-//   alert("Book Deleted");
-//   this.getAllBook();
-// })
-// }
+setDelete(data: any) { 
+  this.http.delete("http://localhost:8000/book/delete"+ "/"+ data._id).subscribe((resultData: any) => {
+  console.log(resultData);
+  alert("Book Deleted");
+  this.getBook();
+})
+}
 //   setUpdate(data: any) {
 //     this.title = data.title;
 //     this.writer = data.writer;
@@ -118,3 +140,4 @@ export class AddBookComponent {
 //     });  
 //   }
 }
+

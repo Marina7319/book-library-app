@@ -1,3 +1,6 @@
+import { NotFoundComponent } from './not-found/not-found.component';
+import { BooksComponent } from './books/books.component';
+import { AboutComponent } from './about/about.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -13,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule,AddBookComponent, HeaderComponent, HomeComponent, FormsModule, ReactiveFormsModule],
+  imports: [NotFoundComponent, BooksComponent, RouterModule, CommonModule,AddBookComponent, HeaderComponent, HomeComponent, FormsModule, AboutComponent, ReactiveFormsModule],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
