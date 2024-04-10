@@ -5,8 +5,6 @@ import { Router, RouterModule } from '@angular/router';
 import { RegisterComponent } from '../register/register.component';
 import { CommonModule } from '@angular/common';
 
-
-
 @Component({
   selector: '',
   standalone: true,
@@ -35,14 +33,14 @@ export class LoginComponent implements OnInit {
     let user = this.form.getRawValue();
     console.log(user);
       if(user.lastname == "" || user.email == "" || user.firstname == "" || user.password == "") {
-        alert("Student Not Logged Successfully");
+        alert("User Not Logged Successfully");
       } else {
         this.http.post("http://localhost:8000/user/login", user, {
         withCredentials:true
       }).subscribe((res) => this.router.navigate(['/home']),
       (err) => { 
         console.log("Error login");
-        alert("Incorrect Email or Password 2");
+        alert("Incorrect Email or Password");
         })
       }
   }

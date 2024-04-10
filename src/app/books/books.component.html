@@ -1,5 +1,5 @@
-<input class="form-control" type="search"
-[formControl] = "searchControl">
+<input class="search" type="search"
+[formControl] = "search"> <br>
 <table class="table">
    <thead>
      <tr>
@@ -10,9 +10,9 @@
    </thead>
    <tbody>
      <tr *ngFor="let books of array">
-<th>{{books['title']}}</th>
-<th>{{books['writer']}}</th>
-<th>{{books['genre']}}</th> 
+       <th>{{books['title']}}</th>
+       <th>{{books['writer']}}</th>
+       <th>{{books['genre']}}</th> 
      </tr>
    </tbody>
  </table>

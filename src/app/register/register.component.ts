@@ -15,9 +15,7 @@ import { Router, RouterModule } from '@angular/router';
 
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
-
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router)  {     }
-
   ngOnInit():void{
     this.form = this.formBuilder.group({
       firstname: "",
@@ -26,12 +24,11 @@ export class RegisterComponent implements OnInit {
       password:"",
     });
   }
-
   submit(): void{
     let user = this.form.getRawValue();
     console.log(user);
     if(user.lastname == "" || user.email == "" || user.firstname == "" || user.password == "") {
-      alert("Student Not Registered Successfully");        
+      alert("User Not Registered Successfully");        
     }else {
       this.http.post("http://localhost:8000/user/create", user, {
       withCredentials: true

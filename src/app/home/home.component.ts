@@ -6,7 +6,7 @@ import { AddBookComponent } from '../add-book/add-book.component';
 import { HttpClient } from '@angular/common/http';
 import { Emitters } from '../emitters/emitter';
 
-@Component({
+@Component({ 
   selector: 'home',
   standalone: true,
   imports: [FormsModule, RouterModule, CommonModule, AddBookComponent],
@@ -15,20 +15,16 @@ import { Emitters } from '../emitters/emitter';
 })
 export class HomeComponent implements OnInit {
   messagge = ''
- 
-
-constructor(private http: HttpClient) {
-  
-}
-ngOnInit(): void {
-  this.http.get("http://localhost:8000/user/username", {withCredentials:true})
-  .subscribe((res:any) => {
-    this.messagge = `Hi ${res.firstname}`
-    Emitters.authEmitter.emit(true);
-  }, (err) => { 
-    this.messagge = `error you are not logged in`
-    Emitters.authEmitter.emit(false);
+  constructor(private http: HttpClient) {
   }
-);
-}
+  ngOnInit():void {
+    this.http.get("http://localhost:8000/user/username", {withCredentials:true})
+    .subscribe((res:any) => {
+      this.messagge = `Hi ${res.firstname}`
+      Emitters.authEmitter.emit(true);
+    }, (err) => { 
+      this.messagge = `error you are not logged in`
+      Emitters.authEmitter.emit(false);
+  });
+ }
 }

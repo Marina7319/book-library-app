@@ -1,3 +1,11 @@
-.table {
-    text-align: center;
+.table 
+{
+  text-align: center;
+}
+
+.search
+{
+  width: 25%;
+  background-color: white;
+  margin: 15px;
 }

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { map, debounceTime, distinctUntilChanged, filter } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,33 +13,26 @@ import { CommonModule } from '@angular/common';
   styleUrl: './books.component.css'
 })
 export class BooksComponent {
-  searchControl = new FormControl();
-  isLoading = false;
-  books = []
-
+  search = new FormControl();
   arr = []
-array = []
-word = ''
-
+  array = []
+  word = ''
   constructor( private http: HttpClient)  
   {   
-this.getBook();
-
-
+  this.getBook();
   }
 
-  ngOnInit():void {
-
-    if(this.array.length === 0) {
-      this.http.get("http://localhost:8000/book/list")
+ngOnInit():void {
+  if(this.array.length === 0) {
+    this.http.get("http://localhost:8000/book/list")
       .subscribe((res:any) => {
       this.array = res
       }
     );
   }
      
-this.searchControl.valueChanges.pipe(filter(text => text.length >= 3))
-.pipe(debounceTime(400)).pipe(distinctUntilChanged()).subscribe(value => 
+  this.search.valueChanges.pipe(filter(text => text.length >= 3))
+  .pipe(debounceTime(400)).pipe(distinctUntilChanged()).subscribe(value => 
   {
     this.http.get("http://localhost:8000/book/list")
     .subscribe((res:any) => {
@@ -58,8 +51,8 @@ this.searchControl.valueChanges.pipe(filter(text => text.length >= 3))
 });
 }
 
-  getBook() {
+getBook() {
     return this.http.get("http://localhost:8000/book/list").pipe(
     map(res=> console.log(res)));
-  }
+   }
 }

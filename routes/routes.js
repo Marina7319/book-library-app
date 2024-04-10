@@ -1,7 +1,6 @@
 var {Router} = require('express');
 var userModel = require('../src/user/userModel');
 var bookModel = require('../src/user/bookModel');
-var userController = require('../src/user/userController');
 var jwt = require('jsonwebtoken');
 
 const router = Router();
@@ -25,10 +24,6 @@ router.post('/book/add', async (req, res) => {
     })
     const result = await book.save();
     
-    // res.status({
-    //     message:"success"
-    // })
-
     res.json({
         user:result
     })   
@@ -70,18 +65,14 @@ router.post('/user/create', async (req, res) => {
         httpOnly:true,
         maxage:2*30*30*1000
     })
-    // res.status({
-    //     message:"success"
-    // })
+
 
     res.json({
         user:result
     })   
 }
-})
+});
 
-
-//router.route('/book/delete/:id').delete(userController.deleteBookController);
 
 
 router.get("/book/list",  (req, res) => { 

@@ -1,27 +1,41 @@
-# BookLibraryApp
+Този проект е website за книги.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
+Необходими инструменти:
+Visual Studio Code: https://code.visualstudio.com/,
+MongoDBCompass: https://www.mongodb.com/products/tools/compass,
+MongoDB Server: https://www.mongodb.com/try/download/community,
+проекта на website-а: https://github.com/Marina7319/book-library-app.git,
+Windows 10.
 
-## Development server
+За да се стартира проекта се изискват: 
+Visual Studio Code, MongoDBCompass, MongoDB Server, проекта и Windows 10.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+В проекта можете да намерите:
+login.component.ts, login.component.html и login.component.css файлове.
+Екран за Login в сайта. Полета с Email и Password. Бутон с Submit. Заглавие Hello Rpivate Library. Меню за Login и Register.
+![Login](/Images/Login.png).
 
-## Code scaffolding
+register.component.ts, register.component.html и register.component.css файлове.
+Екран за Home в сайта. Изписва се Hi с име на потербител. Меню за Login и Register.
+![Home](/Images/Register.png).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+home.component.ts, home.component.html и home.component.css файлове.
+Екран за Home в сайта. Изписва се Hi с име на потербител. Меню за Logout, About и Add Book.
+![Home](/Images/GreatingsUser.png).
 
-## Build
+About.component.ts, about.component.html и home.component.css файлове.
+Екран за потребителя. Параграфи с first name, last name и email. Меню за Logout, About и Add Book.
+![Home](/Images/About.png).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Add-book.component.ts, add-book.component.ts и add-book.component.css файлове.
+Екран за Book. Полета за title, writer и genre. Меню за Logout, About и Add Book.
+![AddBook](/Images/AddBook.png).
 
-## Running unit tests
+Books.component.ts, books.component.html и books.component.ts файлове.
+Екран с книгите в сайта. Поле за търсене позаглавие. Бутони за Login и Register.
+![Books](/Images/BookList.png).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
